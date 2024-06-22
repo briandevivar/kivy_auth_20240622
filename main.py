@@ -84,12 +84,7 @@ class MainApp(MDApp):
             message = "Username and/or password cannot be empty."
 
         if message != "":
-            MDSnackbar(
-                MDSnackbarText(
-                    text=message,
-                ),
-                orientation="horizontal",
-            ).open()
+            self.show_snackbar(message)
 
     def register_user(self):
         full_name = self.root.get_screen("register_screen").ids.full_name
@@ -126,11 +121,27 @@ class MainApp(MDApp):
                 )
                 last_inserted_id = auth_tbl.insert_auth(username, password, inserted_id, created_at, updated_at)
 
-                print(last_inserted_id)
+                message = f"User with ID: {last_inserted_id} registered successfully!"
 
-                self.root.current = "home_screen"
-            else:
                 self.root.current = "login_screen"
+            else:
+                message = "Something went wrong. No data were inserted!"
+
+                self.root.current = "login_screen"
+
+        else:
+            message = "Something went wrong. Check and try again"
+
+        if message:
+            self.show_snackbar(message)
+
+    def show_snackbar(self, message):
+        MDSnackbar(
+            MDSnackbarText(
+                text=message,
+            ),
+            orientation="horizontal",
+        ).open()
 
 
 if __name__ == '__main__':

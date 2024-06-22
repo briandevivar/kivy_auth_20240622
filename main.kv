@@ -1,0 +1,291 @@
+MDScreenManager:
+    id: window_manager
+    name: "window_manager"
+
+    LoginScreen:
+    RegisterScreen:
+    HomeScreen:
+
+<LoginScreen@MDScreen>:
+    id: login_screen
+    name: "login_screen"
+    md_bg_color: self.theme_cls.primaryColor
+
+    MDCard:
+        style: "elevated"
+        pos_hint: {"center_x": .5, "center_y": .5}
+        padding: 10
+        size_hint: None, None
+        size: 768, 768
+        theme_bg_color: "Custom"
+        md_bg_color: "white"
+
+        MDRelativeLayout:
+
+            MDLabel:
+                text: "Please Login to continue"
+                font_style: "Title"
+                role: "large"
+                halign: "center"
+                pos_hint: {"center_x": .5, "center_y": .85}
+                theme_text_color: "Custom"
+                text_color: "black"
+
+            MDTextField:
+                id: username
+                mode: "filled"
+                pos_hint: {"center_x": .5, "center_y": .65}
+                size_hint: (.9, 1)
+                required: True
+
+                MDTextFieldHintText:
+                    text: "Username"
+
+                MDTextFieldTrailingIcon:
+                    icon: "account"
+
+            MDTextField:
+                id: password
+                mode: "filled"
+                password: True
+                pos_hint: {"center_x": .5, "center_y": .48}
+                size_hint: (.9, 1)
+                required: True
+
+                MDTextFieldHintText:
+                    text: "Password"
+
+                MDTextFieldTrailingIcon:
+                    icon: "lock"
+
+            MDButton:
+                style: "elevated"
+                theme_width: "Custom"
+                size_hint_x: .8
+                pos_hint: {"center_x": .5, "center_y": .33}
+                theme_bg_color: "Custom"
+                md_bg_color: (0, 0, 1, 1)
+                on_release: app.login_user()
+
+                MDButtonText:
+                    text: "Login"
+                    pos_hint: {"center_x": .5, "center_y": .5}
+
+            MDButton:
+                style: "elevated"
+                theme_width: "Custom"
+                size_hint_x: .8
+                pos_hint: {"center_x": .5, "center_y": .2}
+                theme_bg_color: "Custom"
+                md_bg_color: (0, 1, 0, 1)
+                on_release:
+                    root.manager.current = "register_screen"
+                    root.manager.transition.direction = "left"
+
+                MDButtonText:
+                    text: "Register"
+                    theme_text_color: "Custom"
+                    text_color: "black"
+                    pos_hint: {"center_x": .5, "center_y": .5}
+
+<RegisterScreen@MDScreen>:
+    id: register_screen
+    name: "register_screen"
+    md_bg_color: self.theme_cls.primaryColor
+
+    MDBoxLayout:
+        orientation: "vertical"
+        padding: [20, 250]
+        spacing: 20
+
+        MDLabel:
+            text: "Create an Account"
+            font_style: "Title"
+            role: "large"
+            halign: "center"
+            theme_text_color: "Custom"
+            text_color: "black"
+
+        MDTextField:
+            id: full_name
+            mode: "filled"
+            size_hint_x: .9
+            pos_hint: {"center_x": .5, "center_y": .5}
+
+            MDTextFieldHintText:
+                text: "Full Name"
+
+            MDTextFieldTrailingIcon:
+                icon: "account"
+
+        MDTextField:
+            id: address
+            mode: "filled"
+            size_hint_x: .9
+            pos_hint: {"center_x": .5, "center_y": .5}
+
+            MDTextFieldHintText:
+                text: "Address"
+
+            MDTextFieldTrailingIcon:
+                icon: "map"
+
+        MDTextField:
+            id: birthday
+            mode: "filled"
+            size_hint_x: .9
+            pos_hint: {"center_x": .5, "center_y": .5}
+            on_focus: app.show_date_picker(self.focus)
+
+            MDTextFieldHintText:
+                text: "Birthday"
+
+            MDTextFieldTrailingIcon:
+                icon: "cake"
+
+        MDTextField:
+            id: gender
+            mode: "filled"
+            size_hint_x: .9
+            pos_hint: {"center_x": .5, "center_y": .5}
+            on_focus: app.show_gender_menu(self, self.focus)
+
+            MDTextFieldHintText:
+                text: "Gender"
+
+            MDTextFieldTrailingIcon:
+                icon: "gender-male-female"
+
+        MDButton:
+            style: "elevated"
+            theme_width: "Custom"
+            size_hint_x: .5
+            pos_hint: {"center_x": .5, "center_y": .5}
+            theme_bg_color: "Custom"
+            md_bg_color: (0, 0, 1, 1)
+            on_release: app.register_user()
+
+            MDButtonText:
+                text: "Submit"
+                theme_text_color: "Custom"
+                text_color: "white"
+                pos_hint: {"center_x": .5, "center_y": .5}
+
+        MDButton:
+            style: "elevated"
+            theme_width: "Custom"
+            size_hint_x: .5
+            pos_hint: {"center_x": .5, "center_y": .5}
+            theme_bg_color: "Custom"
+            md_bg_color: (177/255, 177/255, 177/255, 1)
+            on_release:
+                root.manager.current = "login_screen"
+                root.manager.transition.direction = "right"
+
+            MDButtonText:
+                text: "Back"
+                theme_text_color: "Custom"
+                text_color: "black"
+                pos_hint: {"center_x": .5, "center_y": .5}
+
+<HomeScreen@MDScreen>:
+    id: home_screen
+    name: "home_screen"
+    md_bg_color: self.theme_cls.primaryColor
+
+    MDBoxLayout:
+        orientation: "vertical"
+        padding: 50
+
+        MDLabel:
+            text: "Home Page"
+            font_style: "Title"
+            role: "large"
+            halign: "center"
+            theme_text_color: "Custom"
+            text_color: "black"
+
+        MDGridLayout:
+            cols: 2
+            rows: 4
+            spacing: 20
+
+            MDLabel:
+                text: "Full Name"
+                halign: "right"
+                theme_text_color: "Custom"
+                text_color: "black"
+
+            MDTextField:
+                id: full_name_info
+                mode: "filled"
+                size_hint_x: None
+                width: 1024
+
+                MDTextFieldHintText:
+                    text: "Full Name"
+
+            MDLabel:
+                text: "Address"
+                halign: "right"
+                theme_text_color: "Custom"
+                text_color: "black"
+
+            MDTextField:
+                id: address_info
+                mode: "filled"
+                size_hint_x: None
+                width: 1024
+
+                MDTextFieldHintText:
+                    text: "Address"
+
+            MDLabel:
+                text: "Birthday"
+                halign: "right"
+                theme_text_color: "Custom"
+                text_color: "black"
+
+            MDTextField:
+                id: birthday_info
+                mode: "filled"
+                size_hint_x: None
+                width: 1024
+
+                MDTextFieldHintText:
+                    text: "Birthday"
+
+            MDLabel:
+                text: "Gender"
+                halign: "right"
+                theme_text_color: "Custom"
+                text_color: "black"
+
+            MDTextField:
+                id: gender_info
+                mode: "filled"
+                size_hint_x: None
+                width: 1024
+
+                MDTextFieldHintText:
+                    text: "Gender"
+
+        MDBoxLayout:
+            orientation: "vertical"
+
+            MDButton:
+                style: "elevated"
+                theme_width: "Custom"
+                size_hint_x: .5
+                pos_hint: {"center_x": .5, "center_y": .5}
+                theme_bg_color: "Custom"
+                md_bg_color: (177/255, 177/255, 177/255, 1)
+                on_release:
+                    root.manager.current = "login_screen"
+                    root.manager.transition.direction = "right"
+
+                MDButtonText:
+                    text: "Logout"
+                    theme_text_color: "Custom"
+                    text_color: "black"
+                    pos_hint: {"center_x": .5, "center_y": .5}

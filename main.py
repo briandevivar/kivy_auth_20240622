@@ -79,7 +79,7 @@ class MainApp(MDApp):
 
                 self.root.current = "home_screen"
             else:
-                message = "User does not exist."
+                message = "User does not exist or username/password is incorrect"
         else:
             message = "Username and/or password cannot be empty."
 

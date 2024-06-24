@@ -88,6 +88,16 @@ MDScreenManager:
                     text_color: "black"
                     pos_hint: {"center_x": .5, "center_y": .5}
 
+            MDCheckbox:
+                on_active: app.show_password(*args)
+                pos_hint: {"center_x": .3, "center_y": .1}
+
+            MDLabel:
+                text: "Show password"
+                pos_hint: {"center_x": .9, "center_y": .1}
+                theme_text_color: "Custom"
+                text_color: "black"
+
 <RegisterScreen@MDScreen>:
     id: register_screen
     name: "register_screen"

@@ -135,6 +135,9 @@ class MainApp(MDApp):
         if message:
             self.show_snackbar(message)
 
+    def show_password(self, _, value):
+        self.root.get_screen("login_screen").ids.password.password = False if value else True
+
     def show_snackbar(self, message):
         MDSnackbar(
             MDSnackbarText(
